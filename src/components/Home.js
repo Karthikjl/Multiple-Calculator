@@ -5,6 +5,7 @@ const Home = ({ onSelect }) => {
     { name: "Basic Math", id: "BasicMath" },
     { name: "Scientific Calculator", id: "Scientific" },
     { name: "BMI Calculator", id: "BMI" },
+    {name: "Age Calculator", id: "AgeCalculator"},
   ];
 
   return (

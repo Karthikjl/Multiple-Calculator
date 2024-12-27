@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import BasicMath from "./components/calculators/BasicMath";
 import Scientific from "./components/calculators/Scientific";
 import BMICalculator from "./components/calculators/BMICalculator";
+import AgeCalculator from "./components/calculators/AgeCalculator";
 
 const App = () => {
   const [selectedCalculator, setSelectedCalculator] = useState(null);
@@ -15,6 +16,8 @@ const App = () => {
         return <Scientific />;
       case "BMI":
         return <BMICalculator />;
+      case "AgeCalculator":
+        return <AgeCalculator />;
       default:
         return <Home onSelect={setSelectedCalculator} />;
     }
