@@ -25,7 +25,7 @@ const App = () => {
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>All-in-One Calculator Hub</h1>
+      <h1 style={{ textAlign: "center" }}>Calculator Hub</h1>
       {renderCalculator()}
       {selectedCalculator && (
         <button

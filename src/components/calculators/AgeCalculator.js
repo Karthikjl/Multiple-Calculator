@@ -2,23 +2,30 @@ import React, { useState } from "react";
 import { TextField, Button, Typography, Box, Paper } from "@mui/material";
 
 const AgeCalculator = () => {
-  const [dob, setDob] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [age, setAge] = useState(null);
   const [error, setError] = useState("");
 
   const calculateAge = () => {
-    if (!dob) {
-      setError("Please enter your date of birth.");
+    if (!startDate || !endDate) {
+      setError("Please enter both dates.");
       setAge(null);
       return;
     }
 
-    const birthDate = new Date(dob);
-    const today = new Date();
-    let calculatedAge = today.getFullYear() - birthDate.getFullYear();
-    const monthDifference = today.getMonth() - birthDate.getMonth();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    if (end < start) {
+      setError("End date cannot be earlier than start date.");
+      setAge(null);
+      return;
+    }
 
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    let calculatedAge = end.getFullYear() - start.getFullYear();
+    const monthDifference = end.getMonth() - start.getMonth();
+
+    if (monthDifference < 0 || (monthDifference === 0 && end.getDate() < start.getDate())) {
       calculatedAge--;
     }
 
@@ -41,7 +48,7 @@ const AgeCalculator = () => {
         sx={{
           padding: "20px",
           width: "100%",
-          maxWidth: "400px",
+          maxWidth: "500px",
           textAlign: "center",
           backgroundColor: "#ffffff",
         }}
@@ -49,18 +56,33 @@ const AgeCalculator = () => {
         <Typography variant="h4" gutterBottom>
           Age Calculator
         </Typography>
+        
         <TextField
-          label="Enter Date of Birth"
+          label="Start Date"
           type="date"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
           fullWidth
           InputLabelProps={{
             shrink: true,
           }}
           sx={{ marginBottom: "20px" }}
         />
+        
+        <TextField
+          label="End Date"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ marginBottom: "20px" }}
+        />
+        
         {error && <Typography color="error">{error}</Typography>}
+        
         <Button
           variant="contained"
           color="primary"
@@ -70,9 +92,10 @@ const AgeCalculator = () => {
         >
           Calculate Age
         </Button>
+        
         {age !== null && (
           <Typography variant="h6" color="primary">
-            Your Age: {age} years
+            The age between the dates is: {age} years
           </Typography>
         )}
       </Paper>
