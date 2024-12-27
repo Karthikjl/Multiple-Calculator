@@ -2,4 +2,4 @@
 
 Current build support 4 calculators - [Use this calculator](https://karthikjl.github.io/Multiple-Calculator/).
 
-This Project is still under devolepment.
+This Project is still under devolepment which is created using [ChatGPT](https://chatgpt.com/).

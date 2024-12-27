@@ -7,37 +7,42 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
+import { evaluate } from "mathjs"; // Install mathjs library
 
 const ScientificCalculator = () => {
   const [input, setInput] = useState("");
 
   const handleButtonClick = (value) => {
     if (value === "C") {
-      setInput("");
+      setInput(""); // Clear input
     } else if (value === "=") {
       try {
-        // Evaluate the mathematical expression
-        const result = eval(input);
+        // Safely evaluate the mathematical expression
+        const result = evaluate(input);
         setInput(result.toString());
       } catch (error) {
-        setInput("Error");
+        setInput("Error"); // Handle invalid expressions
       }
     } else {
-      setInput(input + value);
+      setInput(input + value); // Append value to input
     }
   };
 
   const scientificFunctions = {
-    sin: () => setInput(Math.sin(eval(input)).toString()),
-    cos: () => setInput(Math.cos(eval(input)).toString()),
-    tan: () => setInput(Math.tan(eval(input)).toString()),
-    log: () => setInput(Math.log10(eval(input)).toString()),
-    sqrt: () => setInput(Math.sqrt(eval(input)).toString()),
+    sin: () => setInput(evaluate(`sin(${input})`).toString()),
+    cos: () => setInput(evaluate(`cos(${input})`).toString()),
+    tan: () => setInput(evaluate(`tan(${input})`).toString()),
+    log: () => setInput(evaluate(`log10(${input})`).toString()),
+    sqrt: () => setInput(evaluate(`sqrt(${input})`).toString()),
   };
 
   const handleScientificFunction = (func) => {
     if (input) {
-      scientificFunctions[func]();
+      try {
+        scientificFunctions[func]();
+      } catch (error) {
+        setInput("Error");
+      }
     }
   };
 
